@@ -1,0 +1,24 @@
+import qrcode  # Import the qrcode library to create QR codes
+
+# Function to generate QR code
+def generate_qr_code(data, filename):
+    # Create QR code object with specific settings
+    qr = qrcode.QRCode(
+        version=1,  # Size of the QR code (1 is the smallest)
+        error_correction=qrcode.constants.ERROR_CORRECT_L,  # Error correction level (L allows ~7% error correction)
+        box_size=10,  # Size of each box (module) in the QR code
+        border=4,  # Thickness of the border (in boxes/modules)
+    )
+    qr.add_data(data)  # Add data to the QR code
+    qr.make(fit=True)  # Optimize the QR code to fit the data
+
+    # Create an image from the QR code object
+    img = qr.make_image(fill='black', back_color='white')  # Set fill color to black and background color to white
+
+    img.save(filename)  # Save the generated QR code image to a file with the specified filename
+
+# Example usage
+data = "https://www.example.com"  # Information to encode in the QR code (e.g., a URL)
+filename = "example_qr.png"  # Name of the file where the QR code will be saved
+generate_qr_code(data, filename)  # Call the function to generate and save the QR code
+print(f"QR code generated and saved as {filename}")  # Print a confirmation message
